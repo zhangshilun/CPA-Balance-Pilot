@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CPA Balance Pilot</title>
+  <script id="cpa-plugin-runtime-config" type="application/json">__CPA_PLUGIN_RUNTIME_CONFIG__</script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <header class="appbar">
+    <div class="brand-mark">CP</div><div class="brand-copy"><strong>CPA Balance Pilot</strong><span>供应商余额与用量中心</span></div>
+  </header>
+  <main class="workspace">
+    <section id="notice" class="notice hidden" role="status" aria-live="polite"></section>
+
+    <section id="monitorView" class="view">
+      <header class="view-header">
+        <div><p id="monitorSubtitle">正在读取 CPA 供应商…</p></div>
+        <div class="refresh-area"><label class="monitor-filter"><input id="providerFilter" type="search" placeholder="筛选供应商"><span><b id="supplierCount">0</b> 个供应商</span></label><span id="refreshStatus" class="refresh-status">未刷新</span><button id="reloadBtn" class="button outline" title="重新读取 CPA" type="button">重新读取 CPA</button><button id="refreshAllBtn" class="button primary" type="button">同步数据</button></div>
+      </header>
+      <div id="supplierList" class="provider-cards"></div>
+    </section>
+
+
+  </main>
+
+  <dialog id="providerDialog" class="dialog">
+    <form id="providerForm" method="dialog">
+      <header class="dialog-head">
+        <div>
+          <p class="eyebrow">启用监控</p>
+          <h2 id="providerDialogTitle">配置 CPA 凭证</h2>
+        </div><button class="icon-button" value="cancel" aria-label="关闭">×</button>
+      </header><input id="providerId" type="hidden"><input id="authIndex" type="hidden">
+      <div class="form-grid"><label>类型<select id="sourceType" required>
+            <option value="sub2api">Sub2API</option>
+            <option value="new-api">new-api</option>
+          </select></label><label>CPA 凭证<input id="credentialName" readonly></label><label>显示名称<input id="providerName"
+            required placeholder="例如：Codex 1"></label><label>基础地址<input id="baseURL" type="url" required
+            placeholder="https://example.com"></label></div>
+      <section class="credential-section">
+        <h3>CPA API Key</h3>
+        <p>保存时由 CPA 宿主直接提供并加密保存，不会显示或发送到浏览器。</p>
+      </section>
+      <section id="newAPICredentials" class="credential-section hidden">
+        <h3>new-api 请求头</h3>
+        <p>独立加密保存；请求时原样发送 <code>New-Api-User</code> 与 <code>Authorization</code>。</p>
+        <div class="form-grid"><label>New-Api-User<input id="newAPIUser" autocomplete="off"
+              placeholder="用户标识"></label><label>Authorization<input id="newAPIAuthorization" type="password"
+              autocomplete="off" placeholder="Bearer …"></label></div>
+      </section><label class="enable-check"><input id="enabled" type="checkbox" required> 我确认启用此凭证的余额与用量监控</label>
+      <p id="formError" class="form-error"></p>
+      <footer class="dialog-actions"><button class="button ghost" value="cancel">取消</button><button id="saveProviderBtn"
+          class="button primary" value="default">保存配置</button></footer>
+    </form>
+  </dialog>
+  <script src="app.js"></script>
+</body>
+
+</html>
