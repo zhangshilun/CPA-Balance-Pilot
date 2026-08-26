@@ -35,4 +35,4 @@ openssl rand -base64 32
 ```
 ## License
 
-[MIT](./LICENSE)
+本项目基于 [MIT License](LICENSE) 开源。
