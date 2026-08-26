@@ -19,11 +19,16 @@ plugins/linux/amd64/cpa-balance-pilot.so
 plugins/darwin/arm64/cpa-balance-pilot.dylib
 ```
 
-`CPA_BALANCE_PILOT_KEY` 必填；提供的 32 字节主密钥加密保存
-`CPA_BALANCE_PILOT_DIR` 可省略，此时使用默认目录。
-在 CPA 中启用插件后，从管理中心的插件菜单打开 `CPA Balance Pilot`，插件会自动复用 CPA 管理中心当前会话（无需再次手动输入 Management Key）。余额信息显示在插件自己的管理页面中。
+### 配置
+
+`CPA_BALANCE_PILOT_KEY` 必填；提供的 32 字节主密钥加密保存。该值必须是标准 Base64 编码。
+
+`CPA_BALANCE_PILOT_DIR` 可选，每个账号单独保存为 JSON 文件，默认值为 `/CLIProxyAPI/data/cpa-balance-pilot/`。
 
 生成密钥示例：
+
+将命令输出的密钥填写到 CLIProxyAPI 的插件配置页面。配置完成后请一直使用同一个密钥，否则已有账号密码无法解密。
+
 
 ```bash
 openssl rand -base64 32
