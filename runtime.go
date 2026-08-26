@@ -15,7 +15,7 @@ import (
 
 type pluginConfig struct {
 	Key           string `yaml:"CPA_BALANCE_PILOT_KEY"`
-	DataDirectory string `yaml:"CPA_BALANCE_PILOT_DATA_DIR"`
+	DataDirectory string `yaml:"CPA_BALANCE_PILOT_DIR"`
 }
 
 var configState struct {

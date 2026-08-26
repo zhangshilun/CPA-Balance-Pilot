@@ -20,7 +20,7 @@ plugins/darwin/arm64/cpa-balance-pilot.dylib
 ```
 
 `CPA_BALANCE_PILOT_KEY` 必填；提供的 32 字节主密钥加密保存
-`CPA_BALANCE_PILOT_DATA_DIR` 可省略，此时使用默认目录。
+`CPA_BALANCE_PILOT_DIR` 可省略，此时使用默认目录。
 在 CPA 中启用插件后，从管理中心的插件菜单打开 `CPA Balance Pilot`，插件会自动复用 CPA 管理中心当前会话（无需再次手动输入 Management Key）。余额信息显示在插件自己的管理页面中。
 
 生成密钥示例：

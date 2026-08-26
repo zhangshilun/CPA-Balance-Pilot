@@ -9,7 +9,7 @@ const (
 	dataDirectory          = "cpa-balance-pilot-data"
 	defaultDataDirectory   = "/CLIProxyAPI/data/cpa-balance-pilot"
 	balanceKeyConfigKey    = "CPA_BALANCE_PILOT_KEY"
-	dataDirectoryConfigKey = "CPA_BALANCE_PILOT_DATA_DIR"
+	dataDirectoryConfigKey = "CPA_BALANCE_PILOT_DIR"
 	pluginID               = "cpa-balance-pilot"
 	pluginABIVersion       = 1
 	apiPathPrefix          = "/cpa-balance-pilot"

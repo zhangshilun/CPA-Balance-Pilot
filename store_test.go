@@ -345,7 +345,7 @@ func TestProviderRequestHeaders(t *testing.T) {
 func TestLifecycleConfigurationCreatesSQLiteStore(t *testing.T) {
 	directory := t.TempDir()
 	key := base64.StdEncoding.EncodeToString(make([]byte, 32))
-	raw := []byte("CPA_BALANCE_PILOT_KEY: " + key + "\nCPA_BALANCE_PILOT_DATA_DIR: " + directory + "\n")
+	raw := []byte("CPA_BALANCE_PILOT_KEY: " + key + "\nCPA_BALANCE_PILOT_DIR: " + directory + "\n")
 	configureForLifecycle(mustLifecycle(t, raw))
 	t.Cleanup(closeRuntimeStore)
 	if _, err := currentStore(); err != nil {
