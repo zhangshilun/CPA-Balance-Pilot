@@ -91,7 +91,7 @@ func TestSub2APIMapsBilling(t *testing.T) {
 }
 
 func TestSub2APIUsagePath(t *testing.T) {
-	if got, want := sub2APIUsagePath(30, "Asia/Shanghai"), "/v1/usage?days=30&timezone=Asia%2FShanghai"; got != want {
+	if got, want := sub2APIUsagePath(30, "Asia/Shanghai"), "/usage?days=30&timezone=Asia%2FShanghai"; got != want {
 		t.Fatalf("path = %q, want %q", got, want)
 	}
 }
@@ -108,7 +108,9 @@ func TestNewAPIMapsMaskedKeyAndConvertsQuota(t *testing.T) {
 	if snapshot.Usage.TodayRequests == nil || *snapshot.Usage.TodayRequests != 2 || snapshot.Usage.TodayTokens == nil || *snapshot.Usage.TodayTokens != 8 || snapshot.Usage.TodayActualCost == nil || *snapshot.Usage.TodayActualCost != .75 {
 		t.Fatalf("today usage = %#v", snapshot.Usage)
 	}
-	if snapshot.Usage.TotalRequests == nil || *snapshot.Usage.TotalRequests != 0 || snapshot.Usage.TotalTokens == nil || *snapshot.Usage.TotalTokens != 20 {
+	// new-api only exposes cumulative request count through /api/user/self.
+	// Token totals are not available there and must remain unset.
+	if snapshot.Usage.TotalRequests == nil || *snapshot.Usage.TotalRequests != 0 || snapshot.Usage.TotalTokens != nil {
 		t.Fatalf("total usage = %#v", snapshot.Usage)
 	}
 	if snapshot.Billing.GroupName != "Pro" || snapshot.Billing.RateMultiplier == nil || *snapshot.Billing.RateMultiplier != .15 {
@@ -168,7 +170,7 @@ func TestNewAPIProbeRequestsSequentiallyBeforeAssembly(t *testing.T) {
 	if _, err := (newAPISource{}).Probe(context.Background(), input, defaultSettings(), newProviderClient(defaultSettings())); err != nil {
 		t.Fatal(err)
 	}
-	want := []string{newAPIStatusEndpoint, newAPIUserSelfEndpoint, newAPITokensEndpoint, newAPIGroupsEndpoint, newAPIDataSelfEndpoint, newAPIDataSelfEndpoint}
+	want := []string{newAPIStatusEndpoint, newAPIUserSelfEndpoint, newAPITokensEndpoint, newAPIGroupsEndpoint, newAPIDataSelfEndpoint}
 	if len(order) != len(want) {
 		t.Fatalf("request order = %#v, want %#v", order, want)
 	}
@@ -180,7 +182,8 @@ func TestNewAPIProbeRequestsSequentiallyBeforeAssembly(t *testing.T) {
 }
 
 func TestNewAPIProbeFiltersUsageRowsOutsideRequestedDay(t *testing.T) {
-	start := time.Date(2026, 8, 25, 0, 0, 0, 0, shanghai())
+	today := time.Now().In(shanghai())
+	start := time.Date(today.Year(), today.Month(), today.Day(), 0, 0, 0, 0, shanghai())
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var body string
 		switch r.URL.Path {

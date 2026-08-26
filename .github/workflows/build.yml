@@ -11,7 +11,7 @@ permissions:
   contents: read
 
 env:
-  PLUGIN_NAME: cpa-account-vault
+  PLUGIN_NAME: cpa-balance-pilot
 
 jobs:
   test:
