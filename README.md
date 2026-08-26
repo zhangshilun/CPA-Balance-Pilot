@@ -2,6 +2,8 @@
 
 CPA Balance Pilot 是一个原生 [CLIProxyAPI](https://github.com/router-for-me/CLIProxyAPI) 插件，用于读取 CPA 管理 API 中配置的静态 AI 供应商，并跟踪被选供应商的余额。插件不会修改 CPA 本身。
 
+![alt text](image.png)
+
 ## 核心功能
 
 - 支持 sub2api/new-api 中转余额、当日用量同步及展示。
